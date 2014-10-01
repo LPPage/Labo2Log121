@@ -6,7 +6,7 @@ Date cr√©√©: 2013-05-03
 *******************************************************
 Historique des modifications
 *******************************************************
-*@author Louis-Pierre PagÈ
+*@author Louis-Pierre Pag√©
 2013-09-25 Version initiale
 *******************************************************/  
 
@@ -24,7 +24,7 @@ public abstract class Forme {
 
 	/**
 	 * 
-	 * @return le numÈro sÈquentiel de la forme
+	 * @return le num√©ro s√©quentiel de la forme
 	 */
 	public int getNoSequentiel() {
 		return noSequentiel;
@@ -38,12 +38,26 @@ public abstract class Forme {
 	
 	/**
 	 * 
-	 * @param graphics objet ‡ l'aide duquel on veut dessiner la forme
+	 * @param graphics objet √© l'aide duquel on veut dessiner la forme
 	 */
-	public void dessiner(Graphics graphics)
+	public void dessiner(Graphics graphics, int index)
+	{		
+		graphics.setColor(getCouleur());		
+	}
+	
+	public void dessinerContour(Graphics graphics, int marge)
 	{
-		graphics.setColor(getCouleur());
-	}	
+		int largeurContour = getTaille().width;
+		int hauteurContour = getTaille().height;
+		if (largeurContour < 0){
+			largeurContour = 0 - largeurContour;
+		}
+		if (hauteurContour < 0){
+			hauteurContour = 0 - hauteurContour;
+		}
+		graphics.setColor(Color.BLACK);//pas termin√©
+		graphics.drawRect(marge, marge, largeurContour, hauteurContour);		
+	}
 	
 	/**
 	 * 

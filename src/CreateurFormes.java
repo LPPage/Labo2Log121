@@ -6,7 +6,7 @@ Date créé: 2013-05-03
 *******************************************************
 Historique des modifications
 *******************************************************
-*@author Louis-Pierre Pag�
+*@author Louis-Pierre Pagé
 2013-09-25 Version initiale
 *******************************************************/
 import java.awt.Point;
@@ -17,7 +17,7 @@ public class CreateurFormes {
 	
 	/**
 	 * 
-	 * @param chaineForme la chaine d�crivant une forme provenant du serveur
+	 * @param chaineForme la chaine décrivant une forme provenant du serveur
 	 * @return une sous-classe de la classe Forme aux bonnes dimensions
 	 */
 	public Forme creerForme(String chaineForme) {

@@ -45,7 +45,7 @@ public class FenetreFormes extends JComponent{
 		{
 			if (forme != null)
 			{
-				forme.dessiner(g);
+				forme.dessiner(g, this.formes.getIndex(forme));
 			}
 		}
 	}
@@ -61,7 +61,7 @@ public class FenetreFormes extends JComponent{
 	
 	/**
 	 * 
-	 * @param forme la forme à ajouter à la file de formes pour être éventuellement dessinée
+	 * @param forme la forme Ã© ajouter Ã© la file de formes pour Ã©tre Ã©ventuellement dessinÃ©e
 	 */
 	public void ajouterForme(Forme forme)
 	{

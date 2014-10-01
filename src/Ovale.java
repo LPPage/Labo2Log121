@@ -6,7 +6,7 @@ Date créé: 2013-05-03
 *******************************************************
 Historique des modifications
 *******************************************************
-*@author Louis-Pierre Pag�
+*@author Louis-Pierre Pagé
 2013-09-25 Version initiale
 *******************************************************/  
 
@@ -50,14 +50,16 @@ public class Ovale extends Forme {
 	}
 	
 	@Override
-	public void dessiner(Graphics graphics){
-		super.dessiner(graphics);
+	public void dessiner(Graphics graphics, int index){
+		super.dessiner(graphics, index);
 		
 		int x = this.getCentre().x;
 		int y = this.getCentre().y;
 		int largeur = this.getTaille().width;
 		int hauteur = this.getTaille().height;
+		int marge = 40 * index;
 		
-		graphics.fillOval(x, y, largeur, hauteur);
+		graphics.fillOval(marge, marge, largeur, hauteur);
+		super.dessinerContour(graphics, marge);
 	}
 }

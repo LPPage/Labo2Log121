@@ -6,27 +6,30 @@ Date cr√©√©: 2013-05-03
 *******************************************************
 Historique des modifications
 *******************************************************
-*@author Louis-Pierre PagÈ
+*@author Louis-Pierre Pag√©
 2013-09-25 Version initiale
 *******************************************************/  
 
 public class FileDeFormes {
 	private final Forme[] formes;
 	private int pointeur = 0;
+	private final int taille;
 	
 	public FileDeFormes(int taille)
 	{
 		formes = new Forme[taille];
+		this.taille = taille;
 	}
 	
 	/**
 	 * 
-	 * @param forme la forme a ajouter a la file, possiblement Ècrasant la premiËre dans la file
+	 * @param forme la forme a ajouter a la file, possiblement √©crasant la premi√©re dans la file
 	 */
 	public void ajouter(Forme forme)
 	{
-		pointeur = (pointeur + 1) % 10;
+		pointeur = (pointeur) % this.taille;
 		this.getFormes()[pointeur] = forme;
+		pointeur++;
 	}
 
 	/**
@@ -35,5 +38,14 @@ public class FileDeFormes {
 	 */
 	public Forme[] getFormes() {
 		return formes;
+	}
+	
+	public int getIndex(Forme f){
+		int index = 0;
+		for (int k = 0; k < this.taille; k++){
+			if (formes[k]==f)
+				index = k;
+		}
+		return index;
 	}
 }

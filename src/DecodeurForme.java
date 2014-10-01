@@ -6,7 +6,7 @@ Date cr√©√©: 2013-05-03
 *******************************************************
 Historique des modifications
 *******************************************************
-*@author Louis-Pierre PagÈ
+*@author Louis-Pierre Pag√©
 2013-09-25 Version initiale
 *******************************************************/  
 
@@ -22,7 +22,7 @@ public class DecodeurForme {
 		
 	/**
 	 * 
-	 * @param chaineForme la chaine dÈcrivant une forme provenant du serveur
+	 * @param chaineForme la chaine d√©crivant une forme provenant du serveur
 	 */
 	public DecodeurForme(String chaineForme)
 	{
@@ -31,7 +31,7 @@ public class DecodeurForme {
 		
 		if (!matcher.find())
 		{
-			throw new IllegalArgumentException("La chaine de la forme n'a pas pu Ítre interprÈtÈe.");
+			throw new IllegalArgumentException("La chaine de la forme n'a pas pu √©tre interpr√©t√©e.");
 		}
 		
 		this.noSeq = Integer.parseInt(matcher.group("noSeq"));
@@ -49,7 +49,7 @@ public class DecodeurForme {
 
 	/**
 	 * 
-	 * @return le numÈro sÈquentiel dÈcodÈ
+	 * @return le num√©ro s√©quentiel d√©cod√©
 	 */
 	public int getNoSeq() {
 		return noSeq;
@@ -57,7 +57,7 @@ public class DecodeurForme {
 
 	/**
 	 * 
-	 * @return le type de forme dÈcodÈ
+	 * @return le type de forme d√©cod√©
 	 */
 	public String getTypeForme() {
 		return typeForme;
@@ -65,7 +65,7 @@ public class DecodeurForme {
 
 	/**
 	 * 
-	 * @return un tableau contenant les paramËtres additionnels de la forme
+	 * @return un tableau contenant les param√©tres additionnels de la forme
 	 */
 	public int[] getParametres() {
 		return parametres;

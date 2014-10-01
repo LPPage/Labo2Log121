@@ -26,15 +26,15 @@ import javax.swing.JOptionPane;
  * @since 2013/05/04
  */
 public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
-	private static final String QUESTION_ADRESSE_SERVEUR = "Quel est le nom d'hôte et le port du serveur de formes?";
+	private static final String QUESTION_ADRESSE_SERVEUR = "Quel est le nom d'hÃ©te et le port du serveur de formes?";
 	private static final String ADRESSE_SERVEUR_PAR_DEFAUT = "localhost:10000";
 	
 	private static final long serialVersionUID = -1210804336046370508L;
 
 	private static final String ERREUR = "Erreur";
-	private static final String ERREUR_CONNEXION_PERDUE = "La connexion avec le serveur a été perdue.";
-	private static final String ERREUR_HOTE_INCONNU = "Le nom d'hôte n'a pas été trouvé.";
-	private static final String ERREUR_PORT_FERME = "Le serveur ne répond pas sur le port spécifié.";
+	private static final String ERREUR_CONNEXION_PERDUE = "La connexion avec le serveur a Ã©tÃ© perdue.";
+	private static final String ERREUR_HOTE_INCONNU = "Le nom d'hÃ©te n'a pas Ã©tÃ© trouvÃ©.";
+	private static final String ERREUR_PORT_FERME = "Le serveur ne rÃ©pond pas sur le port spÃ©cifiÃ©.";
 		
 	private final FenetreFormes fenetreFormes;
 	private final CreateurFormes createurFormes = new CreateurFormes();
@@ -78,7 +78,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 	}
 	
 	/**
-	 *  Se connecter en demandant une adresse jusqu'à ce que celle-ci soit valide ou que l'utilisateur annule l'opération
+	 *  Se connecter en demandant une adresse jusqu'Ã© ce que celle-ci soit valide ou que l'utilisateur annule l'opÃ©ration
 	 */
 	public void reconnecter() {
 		while (true)
@@ -89,11 +89,11 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 			}
 			catch (UnknownHostException ex)
 			{
-				if (!this.afficherErreurEtRedemanderAdresse(ERREUR_HOTE_INCONNU, "Hôte inconnu")) break;
+				if (!this.afficherErreurEtRedemanderAdresse(ERREUR_HOTE_INCONNU, "HÃ©te inconnu")) break;
 			}
 			catch (IOException ex)
 			{
-				if (!this.afficherErreurEtRedemanderAdresse(ERREUR_PORT_FERME, "Port fermé")) break;
+				if (!this.afficherErreurEtRedemanderAdresse(ERREUR_PORT_FERME, "Port fermÃ©")) break;
 			}		
 		}
 		menu.rafraichirMenus();
@@ -101,7 +101,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 		
 	/**
 	 * Afficher une erreur et redemander une adresse
-	 * @return  si une adress a été saisie
+	 * @return  si une adress a Ã©tÃ© saisie
 	 */
 	private boolean afficherErreurEtRedemanderAdresse(String messageErreur, String titre)
 	{
@@ -114,8 +114,8 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 
 	/**
 	 * 
-	 * Demander une adresse jusqu'à ce que celle-ci ait un format valide
-	 * @return si une adress a été saisie
+	 * Demander une adresse jusqu'Ã© ce que celle-ci ait un format valide
+	 * @return si une adress a Ã©tÃ© saisie
 	 */
 	public boolean demanderAdresse()
 	{

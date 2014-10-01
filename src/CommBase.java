@@ -25,7 +25,7 @@ import javax.swing.SwingWorker;
  */
 public class CommBase {
 	private static final String ERREUR_FORMAT_ADRESSE_INVALIDE = "L'adresse n'est pas dans un format valide.";	
-	private static final String ERREUR_PORT_PAS_DANS_PLAGE = "Le numÈro de port doit Ítre entre 1 et 65535.";	
+	private static final String ERREUR_PORT_PAS_DANS_PLAGE = "Le num√©ro de port doit √©tre entre 1 et 65535.";	
 	
 	private final int DELAI = 1000;
 	private SwingWorker threadComm = null;
@@ -63,7 +63,7 @@ public class CommBase {
 
 		
 	/**
-	 * DÈfinir le rÈcepteur de l'information reÁue dans la communication avec le serveur
+	 * D√©finir le r√©cepteur de l'information re√©ue dans la communication avec le serveur
 	 * @param listener sera alert√© lors de l'appel de "firePropertyChanger" par le SwingWorker
 	 */
 	public void setPropertyChangeListener(PropertyChangeListener listener){
@@ -90,8 +90,8 @@ public class CommBase {
 	
 	/**
 	 * Cr√©er le n√©cessaire pour la communication avec le serveur
-	 * @throws IOException si le port est fermÈ
-	 * @throws UnknownHostException si la rÈslution DSN a ÈchouÈ
+	 * @throws IOException si le port est ferm√©
+	 * @throws UnknownHostException si la r√©slution DSN a √©chou√©
 	 */
 	protected void creerCommunication() throws UnknownHostException, IOException{
 		final Socket socket = new Socket(hote, port);
