@@ -18,6 +18,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 
 /**
@@ -84,9 +86,29 @@ public class CommBase {
 	 * Arrête la communication
 	 */
 	public void stop(){
-		if(threadComm!=null)
-			threadComm.cancel(true); 
-		isActif = false;
+		try{
+			if(threadComm!=null)
+				threadComm.cancel(true);
+			writer.println("END");
+			reader.close();
+			writer.close();
+			socket.close();
+			isActif = false;			
+		}
+		//gestion des erreurs
+		//hôte inconnu
+		catch (UnknownHostException e) {
+			final JPanel panel = new JPanel();
+			//lève un JOptionPane et change isInvalid à true pour empêcher le fil de commencer
+			JOptionPane.showMessageDialog(panel, "Le nom de l'hôte fourni est invalide!", "Erreur", JOptionPane.ERROR_MESSAGE);				
+		}
+		//l'hôte ne répond pas sur le port spécifié
+		catch (IOException e) {
+			final JPanel panel = new JPanel();
+			//lève un JOptionPane et change isInvalid à true pour empêcher le fil de commencer
+			JOptionPane.showMessageDialog(panel, "Le serveur \"" + hote + "\" ne répond pas sur le port " + port + "!", "Erreur", JOptionPane.ERROR_MESSAGE);			
+		}
+
 	}
 
 	/**
@@ -100,7 +122,7 @@ public class CommBase {
 		this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		isActif = true;
 	}
-	
+
 	protected void obtenirFormes() throws UnknownHostException, IOException{
 		threadComm = new SwingWorker(){
 			@Override
