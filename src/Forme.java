@@ -38,7 +38,7 @@ public abstract class Forme {
 	
 	/**
 	 * 
-	 * @param graphics objet é l'aide duquel on veut dessiner la forme
+	 * @param graphics objet à l'aide duquel on veut dessiner la forme
 	 */
 	public void dessiner(Graphics graphics, int index)
 	{		

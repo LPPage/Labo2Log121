@@ -40,12 +40,13 @@ public class MenuFenetre extends JMenuBar{
 			MENU_DESSIN_TITRE = "app.frame.menus.draw.title",
 			MENU_DESSIN_DEMARRER = "app.frame.menus.draw.start",
 			MENU_DESSIN_ARRETER = "app.frame.menus.draw.stop",
+			MENU_OBTENIR_FORMES = "app.frame.menus.draw.obtenirFormes",
 			MENU_DESSIN_ADRESSE = "app.frame.menus.draw.adresse",
 			MENU_AIDE_TITRE = "app.frame.menus.help.title",
 			MENU_AIDE_PROPOS = "app.frame.menus.help.about";
 	private static final String MESSAGE_DIALOGUE_A_PROPOS = "app.frame.dialog.about";  
 
-	private JMenuItem arreterMenuItem, demarrerMenuItem, adresseMenuItem;
+	private JMenuItem arreterMenuItem, demarrerMenuItem, obtenirFormesMenuItem, adresseMenuItem;
 	private static final int DELAI_QUITTER_MSEC = 200;
  	   
 	CommBase comm; // Pour activer/désactiver la communication avec le serveur
@@ -69,7 +70,7 @@ public class MenuFenetre extends JMenuBar{
 	 *  Créer le menu "Draw". 
 	 */
 	protected void addMenuDessiner() {
-		JMenu menu = creerMenu(MENU_DESSIN_TITRE,new String[] { MENU_DESSIN_DEMARRER, MENU_DESSIN_ARRETER, MENU_DESSIN_ADRESSE });
+		JMenu menu = creerMenu(MENU_DESSIN_TITRE,new String[] { MENU_DESSIN_DEMARRER, MENU_DESSIN_ARRETER, MENU_OBTENIR_FORMES, MENU_DESSIN_ADRESSE });
 
 		demarrerMenuItem = menu.getItem(0);
 		demarrerMenuItem.addActionListener(new ActionListener(){
@@ -93,7 +94,14 @@ public class MenuFenetre extends JMenuBar{
 				MENU_DESSIN_ARRETER_TOUCHE_RACC,
 				MENU_DESSIN_ARRETER_TOUCHE_MASK));
 		
-		adresseMenuItem = menu.getItem(2);
+		obtenirFormesMenuItem = menu.getItem(2);
+		obtenirFormesMenuItem.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+			fenetre.obtenirFormes();
+		    }
+	    });
+		
+		adresseMenuItem = menu.getItem(3);
 		adresseMenuItem.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 			fenetre.demanderAdresse();
@@ -146,6 +154,7 @@ public class MenuFenetre extends JMenuBar{
 		demarrerMenuItem.setEnabled(!comm.isActif());
 		arreterMenuItem.setEnabled(comm.isActif());
 		adresseMenuItem.setEnabled(!comm.isActif());
+		obtenirFormesMenuItem.setEnabled(comm.isActif());
 	}
 	
 	/**

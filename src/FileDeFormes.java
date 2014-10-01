@@ -23,7 +23,7 @@ public class FileDeFormes {
 	
 	/**
 	 * 
-	 * @param forme la forme a ajouter a la file, possiblement écrasant la premiére dans la file
+	 * @param forme la forme a ajouter a la file, possiblement écrasant la première dans la file
 	 */
 	public void ajouter(Forme forme)
 	{

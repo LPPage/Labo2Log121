@@ -26,14 +26,14 @@ import javax.swing.JOptionPane;
  * @since 2013/05/04
  */
 public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
-	private static final String QUESTION_ADRESSE_SERVEUR = "Quel est le nom d'héte et le port du serveur de formes?";
+	private static final String QUESTION_ADRESSE_SERVEUR = "Quel est le nom d'Hôte et le port du serveur de formes?";
 	private static final String ADRESSE_SERVEUR_PAR_DEFAUT = "localhost:10000";
 	
 	private static final long serialVersionUID = -1210804336046370508L;
 
 	private static final String ERREUR = "Erreur";
 	private static final String ERREUR_CONNEXION_PERDUE = "La connexion avec le serveur a été perdue.";
-	private static final String ERREUR_HOTE_INCONNU = "Le nom d'héte n'a pas été trouvé.";
+	private static final String ERREUR_HOTE_INCONNU = "Le nom d'Hôte n'a pas été trouvé.";
 	private static final String ERREUR_PORT_FERME = "Le serveur ne répond pas sur le port spécifié.";
 		
 	private final FenetreFormes fenetreFormes;
@@ -78,7 +78,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 	}
 	
 	/**
-	 *  Se connecter en demandant une adresse jusqu'é ce que celle-ci soit valide ou que l'utilisateur annule l'opération
+	 *  Se connecter en demandant une adresse jusqu'à ce que celle-ci soit valide ou que l'utilisateur annule l'opération
 	 */
 	public void reconnecter() {
 		while (true)
@@ -89,7 +89,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 			}
 			catch (UnknownHostException ex)
 			{
-				if (!this.afficherErreurEtRedemanderAdresse(ERREUR_HOTE_INCONNU, "Héte inconnu")) break;
+				if (!this.afficherErreurEtRedemanderAdresse(ERREUR_HOTE_INCONNU, "Hôte inconnu")) break;
 			}
 			catch (IOException ex)
 			{
@@ -114,7 +114,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 
 	/**
 	 * 
-	 * Demander une adresse jusqu'é ce que celle-ci ait un format valide
+	 * Demander une adresse jusqu'à ce que celle-ci ait un format valide
 	 * @return si une adress a été saisie
 	 */
 	public boolean demanderAdresse()
@@ -151,5 +151,19 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 		String message = messageErreur + " Voulez-vous essayer une autre adresse?";
 		int reponse = JOptionPane.showConfirmDialog(this, message, titre, JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 		return reponse == JOptionPane.YES_OPTION;
+	}
+	
+	public void obtenirFormes(){
+		try {
+			comm.obtenirFormes();
+		}
+		catch (UnknownHostException ex)
+		{
+			if (!this.afficherErreurEtRedemanderAdresse(ERREUR_HOTE_INCONNU, "Hôte inconnu"));
+		}
+		catch (IOException ex)
+		{
+			if (!this.afficherErreurEtRedemanderAdresse(ERREUR_PORT_FERME, "Port fermé"));
+		}
 	}
 }
