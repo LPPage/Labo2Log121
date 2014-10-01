@@ -42,7 +42,16 @@ public class MenuFenetre extends JMenuBar{
 			MENU_DESSIN_ARRETER = "app.frame.menus.draw.stop",
 			MENU_DESSIN_ADRESSE = "app.frame.menus.draw.adresse",
 			MENU_AIDE_TITRE = "app.frame.menus.help.title",
-			MENU_AIDE_PROPOS = "app.frame.menus.help.about";
+			MENU_AIDE_PROPOS = "app.frame.menus.help.about",
+			MENU_TRIER = "app.frame.menus.sort.title",
+			MENU_TRIER_CRITERE = "app.frame.menus.sort.criteria.title",
+			MENU_TRIER_CRITERE_NOSEQ = "app.frame.menus.sort.criteria.noseq",
+			MENU_TRIER_CRITERE_AIRE = "app.frame.menus.sort.criteria.area",
+			MENU_TRIER_CRITERE_TYPE = "app.frame.menus.sort.criteria.type",
+			MENU_TRIER_CRITERE_DISTANCE = "app.frame.menus.sort.criteria.distance",
+			MENU_TRIER_ORDRE = "app.frame.menus.sort.order.title",			
+			MENU_TRIER_ORDRE_CROISSANT = "app.frame.menus.sort.order.ascending",
+			MENU_TRIER_ORDRE_DECROISSANT = "app.frame.menus.sort.order.descending";
 	private static final String MESSAGE_DIALOGUE_A_PROPOS = "app.frame.dialog.about";  
 
 	private JMenuItem arreterMenuItem, demarrerMenuItem, adresseMenuItem;
@@ -59,6 +68,7 @@ public class MenuFenetre extends JMenuBar{
 		this.fenetre = fenetre;
 		
 		addMenuDessiner();
+		addMenuTrier();
 		addMenuFichier();
 		addMenuAide();
 		
@@ -100,6 +110,18 @@ public class MenuFenetre extends JMenuBar{
 		    }
 	    });
 		
+		add(menu);
+	}
+	
+	/**
+	 *  Créer le menu "Trier". 
+	 */
+	private void addMenuTrier() {		
+        JMenu menu = new JMenu(LangueConfig.getResource(MENU_TRIER));
+		JMenu menuCritere = creerMenu(MENU_TRIER_CRITERE, new String[] { MENU_TRIER_CRITERE_NOSEQ, MENU_TRIER_CRITERE_AIRE, MENU_TRIER_CRITERE_TYPE, MENU_TRIER_CRITERE_DISTANCE });
+		JMenu menuOrdre = creerMenu(MENU_TRIER_ORDRE, new String[] { MENU_TRIER_ORDRE_CROISSANT, MENU_TRIER_ORDRE_DECROISSANT });
+		menu.add(menuCritere);
+		menu.add(menuOrdre);
 		add(menu);
 	}
 	
