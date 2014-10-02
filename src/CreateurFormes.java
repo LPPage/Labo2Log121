@@ -20,7 +20,7 @@ public class CreateurFormes {
 	 * @param chaineForme la chaine décrivant une forme provenant du serveur
 	 * @return une sous-classe de la classe Forme aux bonnes dimensions
 	 */
-	public Forme creerForme(String chaineForme) {
+	public Forme creerForme(String chaineForme, int ordreReception) {
 		DecodeurForme decodeur = new DecodeurForme(chaineForme);
 		int noSeq = decodeur.getNoSeq();
 		int[] parametres = decodeur.getParametres();	
@@ -43,11 +43,11 @@ public class CreateurFormes {
 			switch(decodeur.getTypeForme())
 			{
 			case "CARRE":
-				return new Carre(noSeq, point1, point2);
+				return new Carre(noSeq, ordreReception, point1, point2);
 			case "RECTANGLE":
-				return new Rectangle(noSeq, point1, point2);
+				return new Rectangle(noSeq, ordreReception, point1, point2);
 			case "LIGNE":
-				return new Ligne(noSeq, point1, point2);
+				return new Ligne(noSeq, ordreReception, point1, point2);
 			}		
 		}
 		else
@@ -60,11 +60,11 @@ public class CreateurFormes {
 			{
 			case "CERCLE":
 				int rayon = parametres[2];
-				return new Cercle(noSeq, centre, rayon);
+				return new Cercle(noSeq, ordreReception, centre, rayon);
 			case "OVALE":
 				int rayonH = parametres[2];
 				int rayonV = parametres[3];
-				return new Ovale(noSeq, centre, rayonH, rayonV);
+				return new Ovale(noSeq, ordreReception, centre, rayonH, rayonV);
 			}
 		}
 		

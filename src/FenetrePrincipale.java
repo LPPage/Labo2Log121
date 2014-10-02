@@ -40,6 +40,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 	private final CreateurFormes createurFormes = new CreateurFormes();
 	private final CommBase comm;
 	private final MenuFenetre menu;
+	private int compteurReception = 0;
 	
 	/**
 	 * Constructeur
@@ -65,7 +66,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 		case "FORME-RECUE":
 			String reponse = (String)arg0.getNewValue();
 			System.out.println(reponse);
-			Forme forme = createurFormes.creerForme(reponse);
+			Forme forme = createurFormes.creerForme(reponse, compteurReception++);
 			this.fenetreFormes.ajouterForme(forme);
 			break;
 		case "CONNECTION_PERDUE":
@@ -81,6 +82,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 	 *  Se connecter en demandant une adresse jusqu'é ce que celle-ci soit valide ou que l'utilisateur annule l'opération
 	 */
 	public void reconnecter() {
+		fenetreFormes.supprimerFormes();
 		while (true)
 		{
 			try {
@@ -151,5 +153,10 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 		String message = messageErreur + " Voulez-vous essayer une autre adresse?";
 		int reponse = JOptionPane.showConfirmDialog(this, message, titre, JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
 		return reponse == JOptionPane.YES_OPTION;
+	}
+	
+	public void trierFormes()
+	{
+		this.fenetreFormes.trierFormes(menu.creerComparateur());
 	}
 }

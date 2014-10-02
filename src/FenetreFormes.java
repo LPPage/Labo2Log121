@@ -27,7 +27,7 @@ public class FenetreFormes extends JComponent{
 	public static final int HEIGHT = 500;
 	public static final Dimension dimension = new Dimension(500,500);
 	
-	private final FileDeFormes formes = new FileDeFormes(10);
+	private ListeChainee formes = new ListeChainee();
 	
 	/**
 	 * Constructeur
@@ -41,12 +41,16 @@ public class FenetreFormes extends JComponent{
 	 */
 	@Override 
 	public void paintComponent(Graphics g){
-		for(Forme forme : this.formes.getFormes())
+		int index = 0;
+		ItemListeChainee item = formes.getPremierItem();
+		while (item != null)
 		{
+			Forme forme = item.getForme();
 			if (forme != null)
 			{
-				forme.dessiner(g, this.formes.getIndex(forme));
+				forme.dessiner(g, index++);
 			}
+			item = item.getItemSuivant();
 		}
 	}
 	
@@ -66,6 +70,18 @@ public class FenetreFormes extends JComponent{
 	public void ajouterForme(Forme forme)
 	{
 		this.formes.ajouter(forme);
+		this.repaint();
+	}
+	
+	public void trierFormes(ComparateurFormes comparateur)
+	{
+		this.formes = new ListeChainee(comparateur, formes);
+		this.repaint();
+	}
+	
+	public void supprimerFormes()
+	{
+		this.formes = new ListeChainee(formes.getComparateur());
 		this.repaint();
 	}
 }

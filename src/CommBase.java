@@ -27,7 +27,7 @@ public class CommBase {
 	private static final String ERREUR_FORMAT_ADRESSE_INVALIDE = "L'adresse n'est pas dans un format valide.";	
 	private static final String ERREUR_PORT_PAS_DANS_PLAGE = "Le numéro de port doit étre entre 1 et 65535.";	
 	
-	private final int DELAI = 1000;
+	private final int DELAI = 250;
 	private SwingWorker threadComm = null;
 	private PropertyChangeListener listener = null;
 	private boolean isActif = false;
@@ -106,7 +106,8 @@ public class CommBase {
 				try
 				{		
 				
-					while(true){
+					for (int i = 0; i < 10; i++)
+					{
 						Thread.sleep(DELAI);
 						
 						writer.println("GET");
