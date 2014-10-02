@@ -43,6 +43,7 @@ public class MenuFenetre extends JMenuBar{
 			MENU_DESSIN_TITRE = "app.frame.menus.draw.title",
 			MENU_DESSIN_DEMARRER = "app.frame.menus.draw.start",
 			MENU_DESSIN_ARRETER = "app.frame.menus.draw.stop",
+			MENU_OBTENIR_FORMES = "app.frame.menus.draw.obtenirFormes",
 			MENU_DESSIN_ADRESSE = "app.frame.menus.draw.adresse",
 			MENU_AIDE_TITRE = "app.frame.menus.help.title",
 			MENU_AIDE_PROPOS = "app.frame.menus.help.about",
@@ -59,7 +60,7 @@ public class MenuFenetre extends JMenuBar{
 	private static final String MESSAGE_DIALOGUE_A_PROPOS = "app.frame.dialog.about";  
 
 	private JMenu menuCritere, menuOrdre;
-	private JMenuItem arreterMenuItem, demarrerMenuItem, adresseMenuItem,
+	private JMenuItem adresseMenuItem, obtenirFormesMenuItem,
 		critereAireMenuItem, critereDistanceMenuItem, critereNoSeqMenuItem, critereReceptionMenuItem, critereTypeMenuItem,
 		ordreCroissantMenuItem, ordreDecroissantMenuItem;
 	private static final int DELAI_QUITTER_MSEC = 200;
@@ -78,39 +79,22 @@ public class MenuFenetre extends JMenuBar{
 		addMenuTrier();
 		addMenuFichier();
 		addMenuAide();
-		
-		this.rafraichirMenus();
 	}
 
 	/**
 	 *  Créer le menu "Draw". 
 	 */
 	protected void addMenuDessiner() {
-		JMenu menu = creerMenu(MENU_DESSIN_TITRE,new String[] { MENU_DESSIN_DEMARRER, MENU_DESSIN_ARRETER, MENU_DESSIN_ADRESSE }, false);
-
-		demarrerMenuItem = menu.getItem(0);
-		demarrerMenuItem.addActionListener(new ActionListener(){
+		JMenu menu = creerMenu(MENU_DESSIN_TITRE,new String[] { MENU_OBTENIR_FORMES, MENU_DESSIN_ADRESSE }, false);
+		
+		obtenirFormesMenuItem = menu.getItem(0);
+		obtenirFormesMenuItem.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				fenetre.reconnecter();
-			}
-		});
-		demarrerMenuItem.setAccelerator(KeyStroke.getKeyStroke(
-				MENU_DESSIN_DEMARRER_TOUCHE_RACC,
-				MENU_DESSIN_DEMARRER_TOUCHE_MASK));
-
-		arreterMenuItem = menu.getItem(1);
-		arreterMenuItem.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-			comm.stop();
-			rafraichirMenus();
+			fenetre.reconnecter();
 		    }
 	    });
 		
-		arreterMenuItem.setAccelerator(KeyStroke.getKeyStroke(
-				MENU_DESSIN_ARRETER_TOUCHE_RACC,
-				MENU_DESSIN_ARRETER_TOUCHE_MASK));
-		
-		adresseMenuItem = menu.getItem(2);
+		adresseMenuItem = menu.getItem(1);
 		adresseMenuItem.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 			fenetre.demanderAdresse();
@@ -197,15 +181,6 @@ public class MenuFenetre extends JMenuBar{
 			}
 		});
 		add(menu);
-	}
-
-	/**
-	 *  Activer ou désactiver les items du menu selon la sélection. 
-	 */
-	public void rafraichirMenus() {
-		demarrerMenuItem.setEnabled(!comm.isActif());
-		arreterMenuItem.setEnabled(comm.isActif());
-		adresseMenuItem.setEnabled(!comm.isActif());
 	}
 	
 	/**

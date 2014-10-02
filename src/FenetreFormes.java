@@ -65,7 +65,7 @@ public class FenetreFormes extends JComponent{
 	
 	/**
 	 * 
-	 * @param forme la forme é ajouter é la file de formes pour étre éventuellement dessinée
+	 * @param forme la forme à ajouter à la file de formes pour étre éventuellement dessinée
 	 */
 	public void ajouterForme(Forme forme)
 	{

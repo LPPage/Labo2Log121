@@ -3,12 +3,12 @@ Cours:  LOG121
 Projet: Squelette du laboratoire #1
 Nom du fichier: CommBase.java
 Date créé: 2013-05-03
-*******************************************************
+ *******************************************************
 Historique des modifications
-*******************************************************
-*@author Patrice Boucher
+ *******************************************************
+ *@author Patrice Boucher
 2013-05-03 Version initiale
-*******************************************************/  
+ *******************************************************/  
 
 import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
@@ -18,6 +18,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 
 /**
@@ -33,7 +35,10 @@ public class CommBase {
 	private boolean isActif = false;
 	private String hote;
 	private int port;
-		
+	private Socket socket;
+	private PrintWriter writer;
+	private BufferedReader reader;
+
 	/**
 	 * 
 	 * @param adresse
@@ -61,7 +66,7 @@ public class CommBase {
 		}
 	}
 
-		
+
 	/**
 	 * Définir le récepteur de l'information reéue dans la communication avec le serveur
 	 * @param listener sera alerté lors de l'appel de "firePropertyChanger" par le SwingWorker
@@ -69,7 +74,7 @@ public class CommBase {
 	public void setPropertyChangeListener(PropertyChangeListener listener){
 		this.listener = listener;
 	}
-	
+
 	/**
 	 * Démarre la communication
 	 * @throws IOException 
@@ -78,7 +83,7 @@ public class CommBase {
 	public void start() throws UnknownHostException, IOException{
 		creerCommunication();
 	}
-	
+
 	/**
 	 * Arrête la communication
 	 */
@@ -87,34 +92,34 @@ public class CommBase {
 			threadComm.cancel(true); 
 		isActif = false;
 	}
-	
+
 	/**
 	 * Créer le nécessaire pour la communication avec le serveur
 	 * @throws IOException si le port est fermé
 	 * @throws UnknownHostException si la réslution DSN a échoué
 	 */
 	protected void creerCommunication() throws UnknownHostException, IOException{
-		final Socket socket = new Socket(hote, port);
-		final PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-		final BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		
+		this.socket = new Socket(hote, port);
+		this.writer = new PrintWriter(socket.getOutputStream(), true);
+		this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		isActif = true;
+
 		threadComm = new SwingWorker(){
 			@Override
 			protected Object doInBackground() throws Exception {
 				System.out.println("Le fils d'execution parallele est lance");
-									
+
 				try
-				{		
-				
+				{						
 					for (int i = 0; i < 10; i++)
 					{
 						Thread.sleep(DELAI);
 						
 						writer.println("GET");
-						
+
 						reader.readLine();
 						String reponse = reader.readLine();
-																	
+
 						if(listener!=null){
 							firePropertyChange("FORME-RECUE", null, (Object)reponse); 
 						}
@@ -122,9 +127,8 @@ public class CommBase {
 				}
 				catch (IOException ex)
 				{
-					isActif = false;
 					if(listener!=null){
-						firePropertyChange("CONNECTION_PERDUE", null, null); 
+						firePropertyChange("CONNECTION-PERDUE", null, null); 
 					}
 				}
 				finally
@@ -132,16 +136,16 @@ public class CommBase {
 					writer.println("END");
 					socket.close();
 				}
-				
+
 				return null;
 			}
 		};
 		if(listener!=null)
-		   threadComm.addPropertyChangeListener(listener);
+			threadComm.addPropertyChangeListener(listener);
 		threadComm.execute();
 		isActif = true;
 	}
-	
+
 	/**
 	 * @return si le fil d'exécution parallèle est actif
 	 */
