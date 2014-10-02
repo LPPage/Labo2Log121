@@ -17,8 +17,8 @@ import java.awt.Point;
 public abstract class FormeADeuxCoordonnees extends Forme {
 	private final Point point1, point2;
 	
-	public FormeADeuxCoordonnees(int noSequentiel, Point point1, Point point2) {
-		super(noSequentiel);
+	public FormeADeuxCoordonnees(int noSequentiel, int ordreReception, Point point1, Point point2) {
+		super(noSequentiel, ordreReception);
 		this.point1 = point1;
 		this.point2 = point2;
 	}

@@ -16,8 +16,8 @@ import java.awt.Point;
 
 public class Cercle extends Ovale {
 
-	public Cercle(int noSequentiel, Point centre, int rayon) {
-		super(noSequentiel, centre, rayon, rayon);
+	public Cercle(int noSequentiel, int ordreReception, Point centre, int rayon) {
+		super(noSequentiel, ordreReception, centre, rayon, rayon);
 	}
 	
 	@Override

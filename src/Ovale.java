@@ -20,8 +20,8 @@ public class Ovale extends Forme {
 	private final Point centre;
 	private final int rayonH, rayonV;
 	
-	public Ovale(int noSequentiel, Point centre, int rayonH, int rayonV) {
-		super(noSequentiel);
+	public Ovale(int noSequentiel, int ordreReception, Point centre, int rayonH, int rayonV) {
+		super(noSequentiel, ordreReception);
 		this.centre = centre;
 		this.rayonH = rayonH;
 		this.rayonV = rayonV;		

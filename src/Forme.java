@@ -16,10 +16,12 @@ import java.awt.Graphics;
 
 public abstract class Forme {
 	private final int noSequentiel;
+	private final int ordreReception;
 	
-	public Forme(int noSequentiel)
+	public Forme(int noSequentiel, int ordreReception)
 	{
 		this.noSequentiel = noSequentiel;
+		this.ordreReception = ordreReception;
 	}
 
 	/**
@@ -64,4 +66,8 @@ public abstract class Forme {
 	 * @return la hauteur et la largeur de la forme
 	 */
 	public abstract Dimension getTaille();
+
+	public int getOrdreReception() {
+		return ordreReception;
+	}
 }

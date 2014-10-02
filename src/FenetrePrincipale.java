@@ -40,6 +40,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 	private final CreateurFormes createurFormes = new CreateurFormes();
 	private final CommBase comm;
 	private final MenuFenetre menu;
+	private int compteurReception = 0;
 	
 	/**
 	 * Constructeur
@@ -65,7 +66,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 		case "FORME-RECUE":
 			String reponse = (String)arg0.getNewValue();
 			System.out.println(reponse);
-			Forme forme = createurFormes.creerForme(reponse);
+			Forme forme = createurFormes.creerForme(reponse, compteurReception++);
 			this.fenetreFormes.ajouterForme(forme);
 			break;
 		case "CONNECTION_PERDUE":
@@ -81,6 +82,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 	 *  Se connecter en demandant une adresse jusqu'à ce que celle-ci soit valide ou que l'utilisateur annule l'opération
 	 */
 	public void reconnecter() {
+		fenetreFormes.supprimerFormes();
 		while (true)
 		{
 			try {
@@ -96,7 +98,6 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 				if (!this.afficherErreurEtRedemanderAdresse(ERREUR_PORT_FERME, "Port fermé")) break;
 			}		
 		}
-		menu.rafraichirMenus();
 	}
 		
 	/**
@@ -153,17 +154,8 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 		return reponse == JOptionPane.YES_OPTION;
 	}
 	
-	public void obtenirFormes(){
-		try {
-			comm.obtenirFormes();
-		}
-		catch (UnknownHostException ex)
-		{
-			if (!this.afficherErreurEtRedemanderAdresse(ERREUR_HOTE_INCONNU, "Hôte inconnu"));
-		}
-		catch (IOException ex)
-		{
-			if (!this.afficherErreurEtRedemanderAdresse(ERREUR_PORT_FERME, "Port fermé"));
-		}
+	public void trierFormes()
+	{
+		this.fenetreFormes.trierFormes(menu.creerComparateur());
 	}
 }

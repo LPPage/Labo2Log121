@@ -27,7 +27,9 @@ import javax.swing.SwingWorker;
  */
 public class CommBase {
 	private static final String ERREUR_FORMAT_ADRESSE_INVALIDE = "L'adresse n'est pas dans un format valide.";	
-	private static final String ERREUR_PORT_PAS_DANS_PLAGE = "Le numéro de port doit étre entre 1 et 65535.";
+	private static final String ERREUR_PORT_PAS_DANS_PLAGE = "Le numéro de port doit étre entre 1 et 65535.";	
+	
+	private final int DELAI = 250;
 	private SwingWorker threadComm = null;
 	private PropertyChangeListener listener = null;
 	private boolean isActif = false;
@@ -86,29 +88,9 @@ public class CommBase {
 	 * Arrête la communication
 	 */
 	public void stop(){
-		try{
-			if(threadComm!=null)
-				threadComm.cancel(true);
-			writer.println("END");
-			reader.close();
-			writer.close();
-			socket.close();
-			isActif = false;			
-		}
-		//gestion des erreurs
-		//hôte inconnu
-		catch (UnknownHostException e) {
-			final JPanel panel = new JPanel();
-			//lève un JOptionPane et change isInvalid à true pour empêcher le fil de commencer
-			JOptionPane.showMessageDialog(panel, "Le nom de l'hôte fourni est invalide!", "Erreur", JOptionPane.ERROR_MESSAGE);				
-		}
-		//l'hôte ne répond pas sur le port spécifié
-		catch (IOException e) {
-			final JPanel panel = new JPanel();
-			//lève un JOptionPane et change isInvalid à true pour empêcher le fil de commencer
-			JOptionPane.showMessageDialog(panel, "Le serveur \"" + hote + "\" ne répond pas sur le port " + port + "!", "Erreur", JOptionPane.ERROR_MESSAGE);			
-		}
-
+		if(threadComm!=null)
+			threadComm.cancel(true); 
+		isActif = false;
 	}
 
 	/**
@@ -121,18 +103,18 @@ public class CommBase {
 		this.writer = new PrintWriter(socket.getOutputStream(), true);
 		this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		isActif = true;
-	}
 
-	protected void obtenirFormes() throws UnknownHostException, IOException{
 		threadComm = new SwingWorker(){
 			@Override
 			protected Object doInBackground() throws Exception {
 				System.out.println("Le fils d'execution parallele est lance");
 
 				try
-				{
-					for(int k = 0; k < 10; k++){
-
+				{						
+					for (int i = 0; i < 10; i++)
+					{
+						Thread.sleep(DELAI);
+						
 						writer.println("GET");
 
 						reader.readLine();
@@ -145,10 +127,14 @@ public class CommBase {
 				}
 				catch (IOException ex)
 				{
-					isActif = false;
 					if(listener!=null){
-						firePropertyChange("CONNECTION_PERDUE", null, null); 
+						firePropertyChange("CONNECTION-PERDUE", null, null); 
 					}
+				}
+				finally
+				{
+					writer.println("END");
+					socket.close();
 				}
 
 				return null;

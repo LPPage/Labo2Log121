@@ -16,8 +16,8 @@ import java.awt.Point;
 
 public class Ligne extends FormeADeuxCoordonnees {
 
-	public Ligne(int noSequentiel, Point point1, Point point2) {
-		super(noSequentiel, point1, point2);
+	public Ligne(int noSequentiel, int ordreReception, Point point1, Point point2) {
+		super(noSequentiel, ordreReception, point1, point2);
 	}
 
 	@Override

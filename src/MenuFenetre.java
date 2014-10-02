@@ -16,11 +16,14 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
+import javax.swing.MenuElement;
 
 /**
  * Crée le menu de la fenêtre de l'applicationé
@@ -46,6 +49,7 @@ public class MenuFenetre extends JMenuBar{
 			MENU_AIDE_PROPOS = "app.frame.menus.help.about",
 			MENU_TRIER = "app.frame.menus.sort.title",
 			MENU_TRIER_CRITERE = "app.frame.menus.sort.criteria.title",
+			MENU_TRIER_CRITERE_RECEPTION = "app.frame.menus.sort.criteria.reception",
 			MENU_TRIER_CRITERE_NOSEQ = "app.frame.menus.sort.criteria.noseq",
 			MENU_TRIER_CRITERE_AIRE = "app.frame.menus.sort.criteria.area",
 			MENU_TRIER_CRITERE_TYPE = "app.frame.menus.sort.criteria.type",
@@ -55,7 +59,10 @@ public class MenuFenetre extends JMenuBar{
 			MENU_TRIER_ORDRE_DECROISSANT = "app.frame.menus.sort.order.descending";
 	private static final String MESSAGE_DIALOGUE_A_PROPOS = "app.frame.dialog.about";  
 
-	private JMenuItem arreterMenuItem, demarrerMenuItem, obtenirFormesMenuItem, adresseMenuItem;
+	private JMenu menuCritere, menuOrdre;
+	private JMenuItem adresseMenuItem, obtenirFormesMenuItem,
+		critereAireMenuItem, critereDistanceMenuItem, critereNoSeqMenuItem, critereReceptionMenuItem, critereTypeMenuItem,
+		ordreCroissantMenuItem, ordreDecroissantMenuItem;
 	private static final int DELAI_QUITTER_MSEC = 200;
  	   
 	CommBase comm; // Pour activer/désactiver la communication avec le serveur
@@ -72,46 +79,22 @@ public class MenuFenetre extends JMenuBar{
 		addMenuTrier();
 		addMenuFichier();
 		addMenuAide();
-		
-		this.rafraichirMenus();
 	}
 
 	/**
 	 *  Créer le menu "Draw". 
 	 */
 	protected void addMenuDessiner() {
-		JMenu menu = creerMenu(MENU_DESSIN_TITRE,new String[] { MENU_DESSIN_DEMARRER, MENU_DESSIN_ARRETER, MENU_OBTENIR_FORMES, MENU_DESSIN_ADRESSE });
-
-		demarrerMenuItem = menu.getItem(0);
-		demarrerMenuItem.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-				fenetre.reconnecter();
-			}
-		});
-		demarrerMenuItem.setAccelerator(KeyStroke.getKeyStroke(
-				MENU_DESSIN_DEMARRER_TOUCHE_RACC,
-				MENU_DESSIN_DEMARRER_TOUCHE_MASK));
-
-		arreterMenuItem = menu.getItem(1);
-		arreterMenuItem.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-			comm.stop();
-			rafraichirMenus();
-		    }
-	    });
+		JMenu menu = creerMenu(MENU_DESSIN_TITRE,new String[] { MENU_OBTENIR_FORMES, MENU_DESSIN_ADRESSE }, false);
 		
-		arreterMenuItem.setAccelerator(KeyStroke.getKeyStroke(
-				MENU_DESSIN_ARRETER_TOUCHE_RACC,
-				MENU_DESSIN_ARRETER_TOUCHE_MASK));
-		
-		obtenirFormesMenuItem = menu.getItem(2);
+		obtenirFormesMenuItem = menu.getItem(0);
 		obtenirFormesMenuItem.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-			fenetre.obtenirFormes();
+			fenetre.reconnecter();
 		    }
 	    });
 		
-		adresseMenuItem = menu.getItem(3);
+		adresseMenuItem = menu.getItem(1);
 		adresseMenuItem.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 			fenetre.demanderAdresse();
@@ -126,18 +109,49 @@ public class MenuFenetre extends JMenuBar{
 	 */
 	private void addMenuTrier() {		
         JMenu menu = new JMenu(LangueConfig.getResource(MENU_TRIER));
-		JMenu menuCritere = creerMenu(MENU_TRIER_CRITERE, new String[] { MENU_TRIER_CRITERE_NOSEQ, MENU_TRIER_CRITERE_AIRE, MENU_TRIER_CRITERE_TYPE, MENU_TRIER_CRITERE_DISTANCE });
-		JMenu menuOrdre = creerMenu(MENU_TRIER_ORDRE, new String[] { MENU_TRIER_ORDRE_CROISSANT, MENU_TRIER_ORDRE_DECROISSANT });
-		menu.add(menuCritere);
-		menu.add(menuOrdre);
+		menuCritere = creerMenu(MENU_TRIER_CRITERE, new String[] { MENU_TRIER_CRITERE_RECEPTION, MENU_TRIER_CRITERE_NOSEQ, MENU_TRIER_CRITERE_AIRE, MENU_TRIER_CRITERE_TYPE, MENU_TRIER_CRITERE_DISTANCE }, true);
+		menuOrdre = creerMenu(MENU_TRIER_ORDRE, new String[] { MENU_TRIER_ORDRE_CROISSANT, MENU_TRIER_ORDRE_DECROISSANT }, true);
+		initailiserSousMenuTrier(menu, menuCritere);
+		initailiserSousMenuTrier(menu, menuOrdre);
+
+		critereReceptionMenuItem = menuCritere.getItem(0);
+		critereNoSeqMenuItem = menuCritere.getItem(1);
+		critereAireMenuItem = menuCritere.getItem(2);
+		critereTypeMenuItem = menuCritere.getItem(3);
+		critereDistanceMenuItem = menuCritere.getItem(4);
+		ordreCroissantMenuItem = menuOrdre.getItem(0);
+		ordreDecroissantMenuItem = menuOrdre.getItem(1);
+		
 		add(menu);
+	}
+	
+	private void initailiserSousMenuTrier(JMenu menu, JMenu sousMenu)
+	{
+		menu.add(sousMenu);
+		sousMenu.getItem(0).setSelected(true);
+		trierSurClic(sousMenu);
+	}
+	
+	private void trierSurClic(JMenu menu)
+	{
+		for (int i = 0; i < menu.getItemCount(); i++)
+		{
+			JMenuItem item = menu.getItem(i);
+			item.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					fenetre.trierFormes();
+				}
+			});
+		}
 	}
 	
 	/** 
 	 * Créer le menu "File". 
 	 */
 	protected void addMenuFichier() {
-		JMenu menu = creerMenu(MENU_FICHIER_TITRE, new String[] { MENU_FICHIER_QUITTER });
+		JMenu menu = creerMenu(MENU_FICHIER_TITRE, new String[] { MENU_FICHIER_QUITTER }, false);
 		menu.getItem(0).addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				comm.stop();
@@ -159,7 +173,7 @@ public class MenuFenetre extends JMenuBar{
 	 *  Créer le menu "Help". 
 	 */
 	private void addMenuAide() {
-		JMenu menu = creerMenu(MENU_AIDE_TITRE, new String[] { MENU_AIDE_PROPOS });
+		JMenu menu = creerMenu(MENU_AIDE_TITRE, new String[] { MENU_AIDE_PROPOS }, false);
 		menu.getItem(0).addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null,  LangueConfig.getResource(MESSAGE_DIALOGUE_A_PROPOS), 
@@ -168,16 +182,6 @@ public class MenuFenetre extends JMenuBar{
 		});
 		add(menu);
 	}
-
-	/**
-	 *  Activer ou désactiver les items du menu selon la sélection. 
-	 */
-	public void rafraichirMenus() {
-		demarrerMenuItem.setEnabled(!comm.isActif());
-		arreterMenuItem.setEnabled(comm.isActif());
-		adresseMenuItem.setEnabled(!comm.isActif());
-		obtenirFormesMenuItem.setEnabled(comm.isActif());
-	}
 	
 	/**
 	 * Créer un élément de menu à partir d'un champs principal et ses éléments
@@ -185,11 +189,52 @@ public class MenuFenetre extends JMenuBar{
 	 * @param itemKeys éléments
 	 * @return le menu
 	 */
-	private static JMenu creerMenu(String titleKey,String[] itemKeys) {
+	private static JMenu creerMenu(String titleKey, String[] itemKeys, boolean isBouton) {
+		ButtonGroup group = new ButtonGroup();
         JMenu menu = new JMenu(LangueConfig.getResource(titleKey));
         for(int i=0; i < itemKeys.length; ++i) {
-           menu.add(new JMenuItem(LangueConfig.getResource(itemKeys[i])));
+        	String text = LangueConfig.getResource(itemKeys[i]);
+        	JMenuItem item;
+        	if (isBouton) 
+        	{
+        		item = new JRadioButtonMenuItem(text);
+        		group.add(item);
+        	}
+        	else
+        	{
+        		item = new JMenuItem(text);
+        	}
+        	menu.add(item);
         }
         return menu;
    }
+	
+	public ComparateurFormes creerComparateur()
+	{
+		boolean croissant = this.ordreCroissantMenuItem.isSelected();
+		if (this.critereReceptionMenuItem.isSelected())
+		{
+			return new ComparateurReception(croissant);
+		}
+		else if (this.critereNoSeqMenuItem.isSelected())
+		{
+			return new ComparateurNoSeq(croissant);
+		}
+		else if (this.critereAireMenuItem.isSelected())
+		{
+			return new ComparateurAire(croissant);
+		}
+		else if (this.critereTypeMenuItem.isSelected())
+		{
+			return new ComparateurType(croissant);
+		}
+		else if (this.critereDistanceMenuItem.isSelected())
+		{
+			return new ComparateurDistance(croissant);
+		}
+		else
+		{
+			throw new IllegalStateException("Crit�re de comparaison de formes inconnu!");	
+		}
+	}
 }

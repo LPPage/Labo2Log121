@@ -15,8 +15,8 @@ import java.awt.Point;
 
 public class Carre extends Rectangle {
 
-	public Carre(int noSequentiel, Point point1, Point point2) {
-		super(noSequentiel, point1, point2);
+	public Carre(int noSequentiel, int ordreReception, Point point1, Point point2) {
+		super(noSequentiel, ordreReception, point1, point2);
 	}
 	
 	@Override

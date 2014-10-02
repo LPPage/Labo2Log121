@@ -17,8 +17,8 @@ import java.awt.Point;
 
 public class Rectangle extends FormeADeuxCoordonnees {
 
-	public Rectangle(int noSequentiel, Point point1, Point point2) {
-		super(noSequentiel, point1, point2);
+	public Rectangle(int noSequentiel, int ordreReception, Point point1, Point point2) {
+		super(noSequentiel, ordreReception, point1, point2);
 	}
 
 	@Override
