@@ -7,7 +7,6 @@ public class ComparateurAire extends ComparateurFormes {
 
 	@Override
 	public int compare(Forme premier, Forme deuxieme) {
-		return super.compare(premier, deuxieme);
+		return super.compare(premier, deuxieme) * Double.compare(premier.getAire(), deuxieme.getAire());
 	}
-
 }
