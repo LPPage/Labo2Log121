@@ -21,6 +21,6 @@ public class Carre extends Rectangle {
 	
 	@Override
 	public Color getCouleur() {
-		return Color.blue;
+		return new Color(255, 72, 64, 128);
 	}
 }

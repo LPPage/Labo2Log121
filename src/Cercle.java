@@ -35,6 +35,6 @@ public class Cercle extends Ovale {
 	
 	@Override
 	public Color getCouleur() {
-		return Color.green;
+		return new Color(64, 255, 64, 128);
 	}
 }

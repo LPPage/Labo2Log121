@@ -41,7 +41,7 @@ public class Ovale extends Forme {
 
 	@Override
 	public Color getCouleur() {
-		return Color.magenta;
+		return new Color(64, 64, 255, 128);
 	}
 	
 	@Override

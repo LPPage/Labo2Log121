@@ -11,8 +11,11 @@ Historique des modifications
 *******************************************************/  
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+
+import javax.swing.colorchooser.ColorSelectionModel;
 
 
 public class Rectangle extends FormeADeuxCoordonnees {
@@ -23,7 +26,7 @@ public class Rectangle extends FormeADeuxCoordonnees {
 
 	@Override
 	public Color getCouleur() {
-		return Color.cyan;
+		return new Color(64, 192, 255, 128);
 	}
 	
 	@Override
@@ -32,12 +35,13 @@ public class Rectangle extends FormeADeuxCoordonnees {
 		
 		int x = this.getPoint1().x;
 		int y = this.getPoint1().y;
-		int largeur = this.getTaille().width;
-		int hauteur = this.getTaille().height;
-		if (x + largeur < 0){
+		Dimension taille = this.getTaille();
+		int largeur = taille.width;
+		int hauteur = taille.height;
+		if (x + (getPoint2().x - getPoint1().x) < 0){
 			largeur = 0 - x;
 		}
-		if (y + hauteur < 0){
+		if (y + (getPoint2().y - getPoint1().y) < 0){
 			hauteur = 0 - y;
 		}
 		int marge = 40 * index;

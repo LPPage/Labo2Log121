@@ -22,7 +22,7 @@ public class Ligne extends FormeADeuxCoordonnees {
 
 	@Override
 	public Color getCouleur() {
-		return Color.orange;
+		return new Color(255, 168, 64, 128);
 	}
 	
 	@Override
@@ -33,14 +33,14 @@ public class Ligne extends FormeADeuxCoordonnees {
 		int largeur = this.getTaille().width;
 		int hauteur = this.getTaille().height;
 		
-		if (largeur < 0){
+		if ((getPoint2().x - getPoint1().x) < 0){
 			x1 = marge - largeur;
 			x2 = marge;
 		}else{
 			x1 = marge;
 			x2 = marge + largeur;			
 		}
-		if (hauteur < 0){
+		if ((getPoint2().y - getPoint1().y) < 0){
 			y1 = marge - hauteur;
 			y2 = marge;
 		}else{
