@@ -2,11 +2,11 @@
 Cours:  LOG121
 Projet: Squelette du laboratoire #1
 Nom du fichier: Forme.java
-Date créé: 2013-05-03
+Date crÃ©Ã©: 2013-05-03
 *******************************************************
 Historique des modifications
 *******************************************************
-*@author Louis-Pierre Pagé
+*@author Louis-Pierre PagÃ©
 2013-09-25 Version initiale
 *******************************************************/  
 
@@ -26,7 +26,7 @@ public abstract class Forme {
 
 	/**
 	 * 
-	 * @return le numéro séquentiel de la forme
+	 * @return le numÃ©ro sÃ©quentiel de la forme
 	 */
 	public int getNoSequentiel() {
 		return noSequentiel;
@@ -40,7 +40,7 @@ public abstract class Forme {
 	
 	/**
 	 * 
-	 * @param graphics objet à l'aide duquel on veut dessiner la forme
+	 * @param graphics objet Ã  l'aide duquel on veut dessiner la forme
 	 */
 	public void dessiner(Graphics graphics, int index)
 	{		
@@ -57,7 +57,7 @@ public abstract class Forme {
 		if (hauteurContour < 0){
 			hauteurContour = 0 - hauteurContour;
 		}
-		graphics.setColor(Color.BLACK);//pas terminé
+		graphics.setColor(Color.BLACK);//pas terminÃ©
 		graphics.drawRect(marge, marge, largeurContour, hauteurContour);		
 	}
 	

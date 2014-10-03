@@ -41,8 +41,8 @@ public abstract class FormeADeuxCoordonnees extends Forme {
 	
 	@Override
 	public Dimension getTaille() {
-		int largeur = (int)(getPoint2().x - getPoint1().x);
-		int hauteur = (int)(getPoint2().y - getPoint1().y);
+		int largeur = Math.abs((int)(getPoint2().x - getPoint1().x));
+		int hauteur = Math.abs((int)(getPoint2().y - getPoint1().y));
 		
 		return new Dimension(largeur, hauteur);
 	}

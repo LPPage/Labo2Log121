@@ -54,6 +54,8 @@ public class MenuFenetre extends JMenuBar{
 			MENU_TRIER_CRITERE_AIRE = "app.frame.menus.sort.criteria.area",
 			MENU_TRIER_CRITERE_TYPE = "app.frame.menus.sort.criteria.type",
 			MENU_TRIER_CRITERE_DISTANCE = "app.frame.menus.sort.criteria.distance",
+			MENU_TRIER_CRITERE_HAUTEUR = "app.frame.menus.sort.criteria.height",
+			MENU_TRIER_CRITERE_LARGEUR = "app.frame.menus.sort.criteria.width",
 			MENU_TRIER_ORDRE = "app.frame.menus.sort.order.title",			
 			MENU_TRIER_ORDRE_CROISSANT = "app.frame.menus.sort.order.ascending",
 			MENU_TRIER_ORDRE_DECROISSANT = "app.frame.menus.sort.order.descending";
@@ -61,7 +63,7 @@ public class MenuFenetre extends JMenuBar{
 
 	private JMenu menuCritere, menuOrdre;
 	private JMenuItem adresseMenuItem, obtenirFormesMenuItem,
-		critereAireMenuItem, critereDistanceMenuItem, critereNoSeqMenuItem, critereReceptionMenuItem, critereTypeMenuItem,
+		critereAireMenuItem, critereDistanceMenuItem, critereNoSeqMenuItem, critereReceptionMenuItem, critereTypeMenuItem, critereHauteurMenuItem, critereLargeurMenuItem,
 		ordreCroissantMenuItem, ordreDecroissantMenuItem;
 	private static final int DELAI_QUITTER_MSEC = 200;
  	   
@@ -109,7 +111,7 @@ public class MenuFenetre extends JMenuBar{
 	 */
 	private void addMenuTrier() {		
         JMenu menu = new JMenu(LangueConfig.getResource(MENU_TRIER));
-		menuCritere = creerMenu(MENU_TRIER_CRITERE, new String[] { MENU_TRIER_CRITERE_RECEPTION, MENU_TRIER_CRITERE_NOSEQ, MENU_TRIER_CRITERE_AIRE, MENU_TRIER_CRITERE_TYPE, MENU_TRIER_CRITERE_DISTANCE }, true);
+		menuCritere = creerMenu(MENU_TRIER_CRITERE, new String[] { MENU_TRIER_CRITERE_RECEPTION, MENU_TRIER_CRITERE_NOSEQ, MENU_TRIER_CRITERE_AIRE, MENU_TRIER_CRITERE_TYPE, MENU_TRIER_CRITERE_DISTANCE, MENU_TRIER_CRITERE_HAUTEUR, MENU_TRIER_CRITERE_LARGEUR }, true);
 		menuOrdre = creerMenu(MENU_TRIER_ORDRE, new String[] { MENU_TRIER_ORDRE_CROISSANT, MENU_TRIER_ORDRE_DECROISSANT }, true);
 		initailiserSousMenuTrier(menu, menuCritere);
 		initailiserSousMenuTrier(menu, menuOrdre);
@@ -119,6 +121,8 @@ public class MenuFenetre extends JMenuBar{
 		critereAireMenuItem = menuCritere.getItem(2);
 		critereTypeMenuItem = menuCritere.getItem(3);
 		critereDistanceMenuItem = menuCritere.getItem(4);
+		critereHauteurMenuItem = menuCritere.getItem(5);
+		critereLargeurMenuItem = menuCritere.getItem(6);		
 		ordreCroissantMenuItem = menuOrdre.getItem(0);
 		ordreDecroissantMenuItem = menuOrdre.getItem(1);
 		
@@ -232,9 +236,17 @@ public class MenuFenetre extends JMenuBar{
 		{
 			return new ComparateurDistance(croissant);
 		}
+		else if (this.critereLargeurMenuItem.isSelected())
+		{
+			return new ComparateurLargeur(croissant);
+		}
+		else if (this.critereHauteurMenuItem.isSelected())
+		{
+			return new ComparateurHauteur(croissant);
+		}
 		else
 		{
-			throw new IllegalStateException("Critère de comparaison de formes inconnu!");	
+			throw new IllegalStateException("Critï¿½re de comparaison de formes inconnu!");	
 		}
 	}
 }
