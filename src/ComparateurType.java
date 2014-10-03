@@ -7,6 +7,6 @@ public class ComparateurType extends ComparateurFormes {
 
 	@Override
 	public int compare(Forme premier, Forme deuxieme) {
-		return super.compare(premier, deuxieme);
+		return super.compare(premier, deuxieme) * Integer.compare(premier.getTypeForme(), deuxieme.getTypeForme());
 	}
 }

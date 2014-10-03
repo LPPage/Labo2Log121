@@ -84,4 +84,10 @@ public class Ovale extends Forme {
 		}
 		return distance;
 	}
+
+	@Override
+	public int getTypeForme() {
+		// TODO Auto-generated method stub
+		return 4;
+	}
 }

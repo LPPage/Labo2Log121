@@ -1,4 +1,4 @@
-/******************************************************
+﻿/******************************************************
 Cours:  LOG121
 Projet: Squelette du laboratoire #1
 Nom du fichier: Forme.java
@@ -29,7 +29,7 @@ public abstract class Forme {
 
 	/**
 	 * 
-	 * @return le numéro séquentiel de la forme
+	 * @return le numÃ©ro sÃ©quentiel de la forme
 	 */
 	public int getNoSequentiel() {
 		return noSequentiel;
@@ -43,7 +43,7 @@ public abstract class Forme {
 
 	/**
 	 * 
-	 * @param graphics objet à l'aide duquel on veut dessiner la forme
+	 * @param graphics objet Ã  l'aide duquel on veut dessiner la forme
 	 */
 	public void dessiner(Graphics graphics, int index)
 	{		
@@ -67,6 +67,8 @@ public abstract class Forme {
 	 */
 	public abstract Dimension getTaille();
 
+	public abstract int getTypeForme();
+	
 	public abstract Double getAire();
 
 	public abstract Double getDistanceEntrePoints();

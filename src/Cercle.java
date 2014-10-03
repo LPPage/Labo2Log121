@@ -37,4 +37,10 @@ public class Cercle extends Ovale {
 	public Color getCouleur() {
 		return new Color(64, 255, 64, 128);
 	}
+	
+	@Override
+	public int getTypeForme() {
+		// TODO Auto-generated method stub
+		return 3;
+	}
 }

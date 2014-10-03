@@ -23,4 +23,10 @@ public class Carre extends Rectangle {
 	public Color getCouleur() {
 		return new Color(255, 72, 64, 128);
 	}
+	
+	@Override
+	public int getTypeForme() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
 }
