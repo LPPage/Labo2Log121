@@ -62,4 +62,10 @@ public class Rectangle extends FormeADeuxCoordonnees {
 		Double distance = Math.sqrt(Math.pow((this.getPoint2().x -this.getPoint1().x),2)+Math.pow((this.getPoint2().y -this.getPoint1().y),2) );
 		return distance;
 	}
+
+	@Override
+	public int getTypeForme() {
+		// TODO Auto-generated method stub
+		return 2;
+	}
 }

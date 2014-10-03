@@ -56,10 +56,9 @@ public class Ligne extends FormeADeuxCoordonnees {
 	@Override
 	public Double getAire() {
 		// TODO Auto-generated method stub
-		int largeur = this.getTaille().width;
-		int hauteur = this.getTaille().height;
+		
 
-		return ((double)(largeur) * (double)(hauteur));
+		return 0.0 ;
 	}
 
 	@Override
@@ -67,5 +66,11 @@ public class Ligne extends FormeADeuxCoordonnees {
 		// TODO Auto-generated method stub
 		Double distance = Math.sqrt(Math.pow((this.getPoint2().x -this.getPoint1().x),2)+Math.pow((this.getPoint2().y -this.getPoint1().y),2) );
 		return distance;
+	}
+
+	@Override
+	public int getTypeForme() {
+		// TODO Auto-generated method stub
+		return 5;
 	}
 }

@@ -67,6 +67,8 @@ public abstract class Forme {
 	 */
 	public abstract Dimension getTaille();
 
+	public abstract int getTypeForme();
+	
 	public abstract Double getAire();
 	
 	public abstract Double getDistanceEntrePoints();
