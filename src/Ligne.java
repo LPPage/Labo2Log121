@@ -52,4 +52,20 @@ public class Ligne extends FormeADeuxCoordonnees {
 		graphics.drawLine(x1, y1, x2, y2);
 		super.dessinerContour(graphics, marge);
 	}
+
+	@Override
+	public Double getAire() {
+		// TODO Auto-generated method stub
+		int largeur = this.getTaille().width;
+		int hauteur = this.getTaille().height;
+
+		return ((double)(largeur) * (double)(hauteur));
+	}
+
+	@Override
+	public Double getDistanceEntrePoints() {
+		// TODO Auto-generated method stub
+		Double distance = Math.sqrt(Math.pow((this.getPoint2().x -this.getPoint1().x),2)+Math.pow((this.getPoint2().y -this.getPoint1().y),2) );
+		return distance;
+	}
 }
