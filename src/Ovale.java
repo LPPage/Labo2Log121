@@ -62,4 +62,26 @@ public class Ovale extends Forme {
 		graphics.fillOval(marge, marge, largeur, hauteur);
 		super.dessinerContour(graphics, marge);
 	}
+
+	@Override
+	public Double getAire() {
+		// TODO Auto-generated method stub
+		
+		return Math.PI * rayonH*rayonV;
+	}
+
+	@Override
+	public Double getDistanceEntrePoints() {
+		// TODO Auto-generated method stub
+		double distance;
+		if(rayonH > rayonV)
+		{
+			distance = rayonH*2;
+		}
+		else
+		{
+			distance = rayonV*2;
+		}
+		return distance;
+	}
 }

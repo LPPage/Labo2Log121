@@ -21,6 +21,19 @@ public class Cercle extends Ovale {
 	}
 	
 	@Override
+	public Double getAire() {
+		// TODO Auto-generated method stub
+		
+		return Math.PI * this.getRayonH() * this.getRayonH();
+	}
+
+	@Override
+	public Double getDistanceEntrePoints() {
+		// TODO Auto-generated method stub
+		return (double) this.getRayonH() *2;
+	}
+	
+	@Override
 	public Color getCouleur() {
 		return Color.green;
 	}

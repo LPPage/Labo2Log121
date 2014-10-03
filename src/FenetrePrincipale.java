@@ -67,6 +67,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 			String reponse = (String)arg0.getNewValue();
 			System.out.println(reponse);
 			Forme forme = createurFormes.creerForme(reponse, compteurReception++);
+			System.out.println(forme.getDistanceEntrePoints() +" ");
 			this.fenetreFormes.ajouterForme(forme);
 			break;
 		case "CONNECTION_PERDUE":
