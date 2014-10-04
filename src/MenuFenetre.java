@@ -87,16 +87,9 @@ public class MenuFenetre extends JMenuBar{
 	 *  Créer le menu "Draw". 
 	 */
 	protected void addMenuDessiner() {
-		JMenu menu = creerMenu(MENU_DESSIN_TITRE,new String[] { MENU_OBTENIR_FORMES, MENU_DESSIN_ADRESSE }, false);
-		
-		obtenirFormesMenuItem = menu.getItem(0);
-		obtenirFormesMenuItem.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-			fenetre.reconnecter();
-		    }
-	    });
-		
-		adresseMenuItem = menu.getItem(1);
+		JMenu menu = creerMenu(MENU_DESSIN_TITRE,new String[] { MENU_DESSIN_ADRESSE }, false);
+			
+		adresseMenuItem = menu.getItem(0);
 		adresseMenuItem.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 			fenetre.demanderAdresse();
@@ -155,8 +148,16 @@ public class MenuFenetre extends JMenuBar{
 	 * Créer le menu "File". 
 	 */
 	protected void addMenuFichier() {
-		JMenu menu = creerMenu(MENU_FICHIER_TITRE, new String[] { MENU_FICHIER_QUITTER }, false);
-		menu.getItem(0).addActionListener(new ActionListener() {
+		JMenu menu = creerMenu(MENU_FICHIER_TITRE, new String[] { MENU_OBTENIR_FORMES, MENU_FICHIER_QUITTER }, false);
+		
+		obtenirFormesMenuItem = menu.getItem(0);
+		obtenirFormesMenuItem.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+			fenetre.reconnecter();
+		    }
+	    });
+		
+		menu.getItem(1).addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				comm.stop();
 			    try {
@@ -167,7 +168,7 @@ public class MenuFenetre extends JMenuBar{
 				System.exit(0);
 			}
 		});
-		menu.getItem(0).setAccelerator(
+		menu.getItem(1).setAccelerator(
 				KeyStroke.getKeyStroke(MENU_FICHIER_QUITTER_TOUCHE_RACC,
 						MENU_FICHIER_QUITTER_TOUCHE_MASK));
 		add(menu);
