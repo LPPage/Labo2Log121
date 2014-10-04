@@ -48,31 +48,14 @@ public class Ovale extends Forme {
 	public Dimension getTaille() {
 		return new Dimension(2 * rayonH, 2 * rayonV);
 	}
-	
-	@Override
-	public void dessiner(Graphics graphics, int index){
-		super.dessiner(graphics, index);
-		
-		int x = this.getCentre().x;
-		int y = this.getCentre().y;
-		int largeur = this.getTaille().width;
-		int hauteur = this.getTaille().height;
-		int marge = 40 * index;
-		
-		graphics.fillOval(marge, marge, largeur, hauteur);
-		super.dessinerContour(graphics, marge);
-	}
 
 	@Override
 	public Double getAire() {
-		// TODO Auto-generated method stub
-		
 		return Math.PI * rayonH*rayonV;
 	}
 
 	@Override
 	public Double getDistanceEntrePoints() {
-		// TODO Auto-generated method stub
 		double distance;
 		if(rayonH > rayonV)
 		{
@@ -87,7 +70,19 @@ public class Ovale extends Forme {
 
 	@Override
 	public int getTypeForme() {
-		// TODO Auto-generated method stub
 		return 4;
+	}
+
+	@Override
+	public Point getCoinHautGauche() {
+		return new Point(centre.x - rayonH, centre.y - rayonV);
+	}
+
+	@Override
+	protected void onDessiner(Graphics graphics, Point coinHautGauche) {
+		int largeur = this.getTaille().width;
+		int hauteur = this.getTaille().height;
+		
+		graphics.fillOval(coinHautGauche.x, coinHautGauche.y, largeur, hauteur);
 	}
 }

@@ -11,11 +11,17 @@ Historique des modifications
 *******************************************************/  
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Point;
-
 
 public abstract class FormeADeuxCoordonnees extends Forme {
 	private final Point point1, point2;
+	
+	@Override
+	public Point getCoinHautGauche()
+	{
+		return new Point(Math.min(point1.x, point2.x), Math.min(point1.y, point2.y));
+	}
 	
 	public FormeADeuxCoordonnees(int noSequentiel, int ordreReception, Point point1, Point point2) {
 		super(noSequentiel, ordreReception);

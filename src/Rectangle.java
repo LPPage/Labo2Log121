@@ -27,29 +27,7 @@ public class Rectangle extends FormeADeuxCoordonnees {
 	}
 	
 	@Override
-	public void dessiner(Graphics graphics, int index){
-		super.dessiner(graphics, index);
-		
-		int x = this.getPoint1().x;
-		int y = this.getPoint1().y;
-		int largeur = this.getTaille().width;
-		int hauteur = this.getTaille().height;
-		if (x + largeur < 0){
-			largeur = 0 - x;
-		}
-		if (y + hauteur < 0){
-			hauteur = 0 - y;
-		}
-		int marge = 40 * index;
-		
-		graphics.fillRect(marge, marge, largeur, hauteur);
-		
-		super.dessinerContour(graphics, marge);
-	}
-
-	@Override
 	public Double getAire() {
-		// TODO Auto-generated method stub
 		int largeur = this.getTaille().width;
 		int hauteur = this.getTaille().height;
 
@@ -58,14 +36,19 @@ public class Rectangle extends FormeADeuxCoordonnees {
 
 	@Override
 	public Double getDistanceEntrePoints() {
-		// TODO Auto-generated method stub
 		Double distance = Math.sqrt(Math.pow((this.getPoint2().x -this.getPoint1().x),2)+Math.pow((this.getPoint2().y -this.getPoint1().y),2) );
 		return distance;
 	}
 
 	@Override
 	public int getTypeForme() {
-		// TODO Auto-generated method stub
 		return 2;
+	}
+
+	@Override
+	protected void onDessiner(Graphics graphics, Point coinHautGauche) {
+		int largeur = this.getTaille().width;
+		int hauteur = this.getTaille().height;
+		graphics.fillRect(coinHautGauche.x, coinHautGauche.y, largeur, hauteur);
 	}
 }

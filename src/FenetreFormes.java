@@ -48,7 +48,14 @@ public class FenetreFormes extends JComponent{
 			Forme forme = item.getForme();
 			if (forme != null)
 			{
-				forme.dessiner(g, index++);
+				if (formes.getComparateur().enDiagonale())
+				{
+					forme.dessiner(g, index++);
+				}
+				else
+				{
+					forme.dessiner(g);				
+				}
 			}
 			item = item.getItemSuivant();
 		}
@@ -73,7 +80,7 @@ public class FenetreFormes extends JComponent{
 		this.repaint();
 	}
 	
-	public void trierFormes(ComparateurFormes comparateur)
+	public void trierFormes(Comparateur comparateur)
 	{
 		this.formes = new ListeChainee(comparateur, formes);
 		this.repaint();

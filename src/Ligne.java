@@ -24,53 +24,49 @@ public class Ligne extends FormeADeuxCoordonnees {
 	public Color getCouleur() {
 		return Color.orange;
 	}
-	
-	@Override
-	public void dessiner(Graphics graphics, int index){
-		super.dessiner(graphics, index);		
-		int marge = 40 * index;
-		int x1, x2, y1, y2;
-		int largeur = this.getTaille().width;
-		int hauteur = this.getTaille().height;
-		
-		if (largeur < 0){
-			x1 = marge - largeur;
-			x2 = marge;
-		}else{
-			x1 = marge;
-			x2 = marge + largeur;			
-		}
-		if (hauteur < 0){
-			y1 = marge - hauteur;
-			y2 = marge;
-		}else{
-			y1 = marge;
-			y2 = marge + hauteur;			
-		}
-		
-		
-		graphics.drawLine(x1, y1, x2, y2);
-		super.dessinerContour(graphics, marge);
-	}
 
 	@Override
 	public Double getAire() {
-		// TODO Auto-generated method stub
-		
-
 		return 0.0 ;
 	}
 
 	@Override
 	public Double getDistanceEntrePoints() {
-		// TODO Auto-generated method stub
 		Double distance = Math.sqrt(Math.pow((this.getPoint2().x -this.getPoint1().x),2)+Math.pow((this.getPoint2().y -this.getPoint1().y),2) );
 		return distance;
 	}
 
 	@Override
 	public int getTypeForme() {
-		// TODO Auto-generated method stub
 		return 5;
+	}
+
+	@Override
+	protected void onDessiner(Graphics graphics, Point coinHautGauche) {
+		int x1, x2, y1, y2;
+		int largeur = this.getTaille().width;
+		int hauteur = this.getTaille().height;
+		
+		if (this.getPoint1().x > this.getPoint2().x)
+		{
+			x1 = coinHautGauche.x + largeur;
+			x2 = coinHautGauche.x;
+		}
+		else{
+			x1 = coinHautGauche.x;
+			x2 = coinHautGauche.x + largeur;			
+		}
+		if (this.getPoint1().y > this.getPoint2().y)
+		{
+			y1 = coinHautGauche.y + hauteur;
+			y2 = coinHautGauche.y;
+		}
+		else
+		{
+			y1 = coinHautGauche.y;
+			y2 = coinHautGauche.y + hauteur;			
+		}	
+				
+		graphics.drawLine(x1, y1, x2, y2);
 	}
 }

@@ -26,7 +26,6 @@ public class Carre extends Rectangle {
 	
 	@Override
 	public int getTypeForme() {
-		// TODO Auto-generated method stub
 		return 1;
 	}
 }

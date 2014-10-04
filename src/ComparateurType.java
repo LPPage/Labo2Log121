@@ -1,5 +1,5 @@
 
-public class ComparateurType extends ComparateurFormes {
+public class ComparateurType extends Comparateur {
 
 	public ComparateurType(boolean ascendant) {
 		super(ascendant);

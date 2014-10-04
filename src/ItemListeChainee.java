@@ -1,12 +1,10 @@
 
 public class ItemListeChainee {
-	private final ListeChainee liste;
 	private Forme forme;
 	private ItemListeChainee itemPrecedent, itemSuivant;
 	
-	public ItemListeChainee(ListeChainee liste, Forme forme)
+	public ItemListeChainee(Forme forme)
 	{
-		this.liste=liste;
 		this.setForme(forme);
 	}
 
@@ -24,10 +22,6 @@ public class ItemListeChainee {
 
 	public void setItemSuivant(ItemListeChainee itemSuivant) {
 		this.itemSuivant = itemSuivant;
-	}
-
-	public ListeChainee getListe() {
-		return liste;
 	}
 
 	public Forme getForme() {

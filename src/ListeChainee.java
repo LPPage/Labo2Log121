@@ -1,6 +1,6 @@
 
 public class ListeChainee {
-	private final ComparateurFormes comparateur;
+	private final Comparateur comparateur;
 	private ItemListeChainee premierItem, dernierItem;
 	
 	public ListeChainee()
@@ -8,12 +8,12 @@ public class ListeChainee {
 		this(new ComparateurReception(false));
 	}
 	
-	public ListeChainee(ComparateurFormes comparateur)
+	public ListeChainee(Comparateur comparateur)
 	{
 		this.comparateur = comparateur;
 	}
 	
-	public ListeChainee(ComparateurFormes comparateur, ListeChainee source)
+	public ListeChainee(Comparateur comparateur, ListeChainee source)
 	{
 		this(comparateur);
 		ItemListeChainee item = source.premierItem;
@@ -26,7 +26,7 @@ public class ListeChainee {
 	
 	public void ajouter(Forme forme)
 	{
-		ItemListeChainee itemAjoute = new ItemListeChainee(this, forme);
+		ItemListeChainee itemAjoute = new ItemListeChainee(forme);
 		ItemListeChainee itemAvant = null;
 		ItemListeChainee itemApres = premierItem;
 		
@@ -67,7 +67,7 @@ public class ListeChainee {
 		return dernierItem;
 	}
 	
-	public ComparateurFormes getComparateur()
+	public Comparateur getComparateur()
 	{
 		return comparateur;
 	}

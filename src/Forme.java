@@ -10,13 +10,21 @@ Historique des modifications
 2013-09-25 Version initiale
 *******************************************************/  
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Stroke;
 
 public abstract class Forme {
+	public static final int DECALAGE_DIAGONAL = 40;
+	
 	private final int noSequentiel;
 	private final int ordreReception;
+	
+	public abstract Point getCoinHautGauche();
 	
 	public Forme(int noSequentiel, int ordreReception)
 	{
@@ -38,27 +46,33 @@ public abstract class Forme {
 	 */
 	public abstract Color getCouleur();
 	
-	/**
-	 * 
-	 * @param graphics objet Ã  l'aide duquel on veut dessiner la forme
-	 */
-	public void dessiner(Graphics graphics, int index)
-	{		
-		graphics.setColor(getCouleur());		
+	public final void dessiner(Graphics graphics, int index)
+	{
+		int marge = DECALAGE_DIAGONAL * index;
+		dessiner(graphics, new Point(marge, marge));
 	}
 	
-	public void dessinerContour(Graphics graphics, int marge)
+	public final void dessiner(Graphics graphics)
 	{
+		dessiner(graphics, this.getCoinHautGauche());
+	}
+	
+	private final void dessiner(Graphics graphics, Point coinHautGauche)
+	{
+		graphics.setColor(getCouleur());
+		onDessiner(graphics, coinHautGauche);
+		dessinerContour(graphics, coinHautGauche);
+	}
+	
+	protected abstract void onDessiner(Graphics graphics, Point coinHautGauche);
+	
+	private void dessinerContour(Graphics graphics, Point coinHautGauche)
+	{
+		Graphics2D graphics2D = (Graphics2D)graphics;
 		int largeurContour = getTaille().width;
 		int hauteurContour = getTaille().height;
-		if (largeurContour < 0){
-			largeurContour = 0 - largeurContour;
-		}
-		if (hauteurContour < 0){
-			hauteurContour = 0 - hauteurContour;
-		}
-		graphics.setColor(Color.BLACK);//pas terminÃ©
-		graphics.drawRect(marge, marge, largeurContour, hauteurContour);		
+		graphics2D.setColor(Color.BLACK);
+		graphics2D.drawRect(coinHautGauche.x, coinHautGauche.y, largeurContour, hauteurContour);
 	}
 	
 	/**

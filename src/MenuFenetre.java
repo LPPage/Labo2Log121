@@ -213,7 +213,7 @@ public class MenuFenetre extends JMenuBar{
         return menu;
    }
 	
-	public ComparateurFormes creerComparateur()
+	public Comparateur creerComparateur()
 	{
 		boolean croissant = this.ordreCroissantMenuItem.isSelected();
 		if (this.critereReceptionMenuItem.isSelected())
