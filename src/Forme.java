@@ -1,14 +1,14 @@
-/******************************************************
+﻿/******************************************************
 Cours:  LOG121
 Projet: Squelette du laboratoire #1
 Nom du fichier: Forme.java
-Date crÃ©Ã©: 2013-05-03
-*******************************************************
+Date créé: 2013-05-03
+ *******************************************************
 Historique des modifications
-*******************************************************
-*@author Louis-Pierre PagÃ©
+ *******************************************************
+ *@author Louis-Pierre Pagé
 2013-09-25 Version initiale
-*******************************************************/  
+ *******************************************************/  
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -23,7 +23,6 @@ public abstract class Forme {
 	
 	private final int noSequentiel;
 	private final int ordreReception;
-	
 	public abstract Point getCoinHautGauche();
 	
 	public Forme(int noSequentiel, int ordreReception)
@@ -39,13 +38,13 @@ public abstract class Forme {
 	public int getNoSequentiel() {
 		return noSequentiel;
 	}
-	
+
 	/**
 	 * 
 	 * @return la couleur de la forme
 	 */
 	public abstract Color getCouleur();
-	
+
 	public final void dessiner(Graphics graphics, int index)
 	{
 		int marge = DECALAGE_DIAGONAL * index;
@@ -72,9 +71,11 @@ public abstract class Forme {
 		int largeurContour = getTaille().width;
 		int hauteurContour = getTaille().height;
 		graphics2D.setColor(Color.BLACK);
+		graphics2D.setStroke(new BasicStroke(1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1F, new float[] {2f}, 0f));
 		graphics2D.drawRect(coinHautGauche.x, coinHautGauche.y, largeurContour, hauteurContour);
+		graphics2D.setStroke(new BasicStroke());
 	}
-	
+
 	/**
 	 * 
 	 * @return la hauteur et la largeur de la forme
@@ -84,9 +85,9 @@ public abstract class Forme {
 	public abstract int getTypeForme();
 	
 	public abstract Double getAire();
-	
+
 	public abstract Double getDistanceEntrePoints();
-	
+
 	public int getOrdreReception() {
 		return ordreReception;
 	}

@@ -30,7 +30,7 @@ public class ListeChainee {
 		ItemListeChainee itemAvant = null;
 		ItemListeChainee itemApres = premierItem;
 		
-		while (itemApres != null && comparateur.compare(forme, itemApres.getForme()) < 0)
+		while (itemApres != null && comparateur.compare(forme, itemApres.getForme()) > 0)
 		{
 			itemAvant = itemApres;
 			itemApres = itemApres.getItemSuivant();

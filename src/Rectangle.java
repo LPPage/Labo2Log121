@@ -11,8 +11,11 @@ Historique des modifications
 *******************************************************/  
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+
+import javax.swing.colorchooser.ColorSelectionModel;
 
 
 public class Rectangle extends FormeADeuxCoordonnees {
@@ -23,7 +26,7 @@ public class Rectangle extends FormeADeuxCoordonnees {
 
 	@Override
 	public Color getCouleur() {
-		return Color.cyan;
+		return new Color(64, 192, 255, 128);
 	}
 	
 	@Override

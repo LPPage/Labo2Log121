@@ -22,7 +22,7 @@ public class Ligne extends FormeADeuxCoordonnees {
 
 	@Override
 	public Color getCouleur() {
-		return Color.orange;
+		return new Color(255, 168, 64, 128);
 	}
 
 	@Override
